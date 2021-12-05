@@ -11,7 +11,7 @@ row = [0,0]
 col = [0,0]
 row_max = 0
 col_max = 0
-path = "./testinput.txt"
+path = "./day5_input.txt"
 vents_map = open(path,'r')
 for line in vents_map:
     coord = re.split(' -> ', line.strip())
@@ -40,18 +40,22 @@ for i in range(len(start_list)):
         col[0] = int(start_list[i][0])
         col[1] = int(end_list[i][0])
         
-        row_range = range(row[0], row[1])
         if (row[0] > row[1]):
-            reversed(row_range)
+            row_range = list(reversed(range(row[1], row[0]+1))) ##
+        else:
+            row_range = list(range(row[0], row[1] + 1))
         
-        col_range = range(col[0], col[1])
         if (col[0] > col[1]):
-            reversed(col_range)
+            col_range = list(reversed(range(col[1], col[0] + 1)))
+        else:
+            col_range = list(range(col[0], col[1] + 1))
         
         element_cnt = 0
-        while (element_cnt <= len(col_range) and element_cnt <= len(row_range)):
-            print(mat)
-            mat[row_range[element_cnt]:row_range[element_cnt]+1, row_range[element_cnt]:row_range[element_cnt]+1] = mat[row_range[element_cnt]:row_range[element_cnt]+1, row_range[element_cnt]:row_range[element_cnt]+1] + 1
+        while (element_cnt < len(col_range) and element_cnt < len(row_range)):
+            print(len(col_range))
+            print(element_cnt)
+            print(row_range[element_cnt], col_range[element_cnt])
+            mat[row_range[element_cnt]:row_range[element_cnt]+1, col_range[element_cnt]:col_range[element_cnt]+1] = mat[row_range[element_cnt]:row_range[element_cnt]+1, col_range[element_cnt]:col_range[element_cnt]+1] + 1
             element_cnt += 1
             print(mat)
     else:
